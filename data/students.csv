@@ -1,4 +1,4 @@
-STUID,GENDER,ETHNICITYID,DISTRICTID,FEEDERID,PROGRAMSTATUSID,PROGRAMSTART,PROGRAMEND,GRADDATE
+student_id,gender,ethnicity_id,district_id,feeder_id,program_status_id,program_start,program_end,grad_date
 1,F,8,393,107,1,9/26/2000,,
 4,F,8,75,107,2,8/20/2001,5/27/2004,6/13/2004
 89,M,8,75,164,3,1/17/2005,,
