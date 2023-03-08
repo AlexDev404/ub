@@ -1,4 +1,4 @@
-PROGRAMSTATUSID,PROGRAMSTATUS
+program_status_id,program_status
 1,Dropped
 2,Graduated
 3,Terminated

@@ -75,12 +75,12 @@ CREATE TABLE Feeder (
     ethnicity_id,
     district_id,
     feeder_id,
+    program_status_id,
     program_start,
     program_end,
-    grad_date,
-    program_status_id
+    grad_date
 )
-FROM 'UB/partials/students.csv' DELIMITER ',' CSV HEADER;
+FROM '../data/Students.csv' DELIMITER ',' CSV HEADER;
 
 --- Courses ---
 \COPY Courses(
@@ -90,7 +90,7 @@ FROM 'UB/partials/students.csv' DELIMITER ',' CSV HEADER;
     course_id,
     course_grade
     )
-FROM 'UB/partials/courses.csv' DELIMITER ',' CSV HEADER;
+FROM '../data/Courses.csv' DELIMITER ',' CSV HEADER;
 
 --- Course ---
 \COPY Course (
@@ -98,26 +98,26 @@ FROM 'UB/partials/courses.csv' DELIMITER ',' CSV HEADER;
     course_code,
     course_title,
     course_credits
-) FROM 'UB/partials/course.csv' DELIMITER ',' CSV HEADER;
+) FROM '../data/Course.csv' DELIMITER ',' CSV HEADER;
 
 --- Ethnicity ---
 \COPY Ethnicity(ethnicity_id, ethnicity)
-FROM 'UB/partials/ethnicity.csv' DELIMITER ',' CSV HEADER;
+FROM '../data/Ethnicity.csv' DELIMITER ',' CSV HEADER;
 
 --- Program_Status ---
 \COPY Program_Status (
-    program_status_id
+    program_status_id,
     program_status
-) FROM 'UB/partials/program_status.csv' DELIMETER ',' CSV HEADER;
+) FROM '../data/Program_Status.csv' DELIMETER ',' CSV HEADER;
 
 --- District ---
 \COPY District(district_id, district)
-FROM 'UB/partials/district.csv' DELIMITER ',' CSV HEADER;
+FROM '../data/District.csv' DELIMITER ',' CSV HEADER;
 
 --- Feeder ---
 \COPY Feeder(
     feeder_id,
     feeder
-) FROM 'UB/partials/feeder.csv' DELIMETER ',' CSV HEADER;
+) FROM '../data/Feeder.csv' DELIMETER ',' CSV HEADER;
 
 --- FINISH ---
