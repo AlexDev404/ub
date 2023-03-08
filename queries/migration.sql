@@ -9,31 +9,7 @@ DROP TABLE IF EXISTS Ethnicity CASCADE;
 DROP TABLE IF EXISTS Program_Status CASCADE;
 DROP TABLE IF EXISTS District CASCADE;
 DROP TABLE IF EXISTS Feeder CASCADE;
---- Students ---
-CREATE TABLE Students (
-    student_id int PRIMARY KEY,
-    gender char(1) NOT NULL,
-    ethnicity_id int REFERENCES ethnicities(ethnicity_id) NOT NULL,
-    district_id int REFERENCES districts(district_id) NOT NULL,
-    feeder_id int REFERENCES feeders(feeder_id) NOT NULL,
-    program_start date,
-    --- Optional ---
-    program_end date,
-    --- Optional ---
-    grad_date date,
-    --- Optional ---
-    program_status_id int REFERENCES program_statuses(program_status_id) NOT NULL,
-    created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
-);
---- Courses ---
-CREATE TABLE Courses (
-    courses_id serial PRIMARY KEY,
-    student_id int REFERENCES students(student_id),
-    enrolled_semester text NOT NULL,
-    course_id int REFERENCES courses(course_id) NOT NULL,
-    course_grade text NOT NULL,
-    created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
-);
+
 --- Course ---
 CREATE TABLE Course (
     course_id serial PRIMARY KEY,
@@ -66,6 +42,34 @@ CREATE TABLE Feeder (
     feeder text NOT NULL,
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
+
+--- Students ---
+CREATE TABLE Students (
+    student_id int PRIMARY KEY,
+    gender char(1) NOT NULL,
+    ethnicity_id int REFERENCES Ethnicity(ethnicity_id) NOT NULL,
+    district_id int REFERENCES District(district_id) NOT NULL,
+    feeder_id int REFERENCES Feeder(feeder_id) NOT NULL,
+    program_start date,
+    --- Optional ---
+    program_end date,
+    --- Optional ---
+    grad_date date,
+    --- Optional ---
+    program_status_id int REFERENCES Program_Status(program_status_id) NOT NULL,
+    created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
+);
+
+--- Courses ---
+CREATE TABLE Courses (
+    courses_id serial PRIMARY KEY,
+    student_id int REFERENCES Students(student_id),
+    enrolled_semester text NOT NULL,
+    course_id int REFERENCES Course(course_id) NOT NULL,
+    course_grade text NOT NULL,
+    created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
+);
+
 --- Start Imports (Start from Top-to-Bottom) ---
 
 --- Students ---
@@ -79,8 +83,7 @@ CREATE TABLE Feeder (
     program_start,
     program_end,
     grad_date
-)
-FROM '../data/Students.csv' DELIMITER ',' CSV HEADER;
+) FROM '../data/Students.csv' DELIMITER ',' CSV HEADER;
 
 --- Courses ---
 \COPY Courses(
@@ -89,11 +92,10 @@ FROM '../data/Students.csv' DELIMITER ',' CSV HEADER;
     enrolled_semester,
     course_id,
     course_grade
-    )
-FROM '../data/Courses.csv' DELIMITER ',' CSV HEADER;
+) FROM '../data/Courses.csv' DELIMITER ',' CSV HEADER;
 
 --- Course ---
-\COPY Course (
+\COPY Course(
     course_id,
     course_code,
     course_title,
@@ -105,7 +107,7 @@ FROM '../data/Courses.csv' DELIMITER ',' CSV HEADER;
 FROM '../data/Ethnicity.csv' DELIMITER ',' CSV HEADER;
 
 --- Program_Status ---
-\COPY Program_Status (
+\COPY Program_Status(
     program_status_id,
     program_status
 ) FROM '../data/Program_Status.csv' DELIMETER ',' CSV HEADER;
