@@ -75,15 +75,15 @@ CREATE TABLE Courses (
 --- Course ---
 \COPY Course( course_id, course_code, course_title, course_credits ) FROM '../data/Course.csv' DELIMITER ',' CSV HEADER;
 --- Ethnicity ---
-\COPY Ethnicity(ethnicity_id, ethnicity) FROM '../data/Ethnicity.csv' DELIMITER ',' CSV HEADER;
+\COPY Ethnicity(ethnicity_id, ethnicity) FROM '../data/Ethnicities.csv' DELIMITER ',' CSV HEADER;
 --- Program_Status ---
 \COPY Program_Status( program_status_id, program_status ) FROM '../data/Program_Status.csv' DELIMITER ',' CSV HEADER;
 --- District ---
-\COPY District(district_id, district) FROM '../data/District.csv' DELIMITER ',' CSV HEADER;
+\COPY District(district_id, district) FROM '../data/Districts.csv' DELIMITER ',' CSV HEADER;
 --- Feeder ---
-\COPY Feeder( feeder_id, feeder ) FROM '../data/Feeder.csv' DELIMITER ',' CSV HEADER;
+\COPY Feeder( feeder_id, feeder ) FROM '../data/Feeders.csv' DELIMITER ',' CSV HEADER;
 --- Students ---
 \COPY Students( student_id, gender, ethnicity_id, district_id, feeder_id, program_status_id, program_start, program_end, grad_date ) FROM '../data/Students.csv' DELIMITER ',' CSV HEADER; 
 --- Courses ---
-\COPY Courses( courses_id, student_id, enrolled_semester, course_id, course_grade ) FROM '../data/Courses.csv' DELIMITER ',' CSV HEADER;
+\COPY Courses( courses_id, student_id, enrolled_semester, course_id, course_grade ) FROM '../data/Student_Courses.csv' DELIMITER ',' CSV HEADER;
 --- FINISH ---
