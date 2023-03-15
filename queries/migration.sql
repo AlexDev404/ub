@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS District CASCADE;
 DROP TABLE IF EXISTS Feeder CASCADE;
 
 --- Course ---
-CREATE TABLE Course (
+CREATE TABLE course (
     course_id serial PRIMARY KEY,
     course_code text NOT NULL,
     course_title text NOT NULL,
@@ -19,31 +19,31 @@ CREATE TABLE Course (
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
 --- Ethnicity ---
-CREATE TABLE Ethnicity (
+CREATE TABLE ethnicities (
     ethnicity_id int PRIMARY KEY,
     ethnicity text NOT NULL,
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
 --- Program_Status ---
-CREATE TABLE Program_Status (
+CREATE TABLE program_status (
     program_status_id integer PRIMARY KEY,
     program_status text NOT NULL,
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
 --- District ---
-CREATE TABLE District (
+CREATE TABLE districts (
     district_id int PRIMARY KEY,
     district text NOT NULL,
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
 --- Feeder ---
-CREATE TABLE Feeder (
+CREATE TABLE feeders (
     feeder_id int PRIMARY KEY,
     feeder text NOT NULL,
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
 --- Students ---
-CREATE TABLE Students (
+CREATE TABLE students (
     student_id int PRIMARY KEY,
     gender char(1) NOT NULL,
     ethnicity_id int REFERENCES Ethnicity(ethnicity_id) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE Students (
     created_at timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );
 --- Courses ---
-CREATE TABLE Courses (
+CREATE TABLE students_courses (
     courses_id serial PRIMARY KEY,
     student_id int REFERENCES Students(student_id),
     enrolled_semester text NOT NULL,
@@ -73,17 +73,17 @@ CREATE TABLE Courses (
 --- Imported in dependent sequence ---
 --- DO NOT CHANGE!!!! ---
 --- Course ---
-\COPY Course( course_id, course_code, course_title, course_credits ) FROM '../data/Course.csv' DELIMITER ',' CSV HEADER;
+\COPY course( course_id, course_code, course_title, course_credits ) FROM '../data/Course.csv' DELIMITER ',' CSV HEADER;
 --- Ethnicity ---
-\COPY Ethnicity(ethnicity_id, ethnicity) FROM '../data/Ethnicity.csv' DELIMITER ',' CSV HEADER;
+\COPY ethnicities(ethnicity_id, ethnicity) FROM '../data/Ethnicities.csv' DELIMITER ',' CSV HEADER;
 --- Program_Status ---
-\COPY Program_Status( program_status_id, program_status ) FROM '../data/Program_Status.csv' DELIMITER ',' CSV HEADER;
+\COPY program_status( program_status_id, program_status ) FROM '../data/Program_Status.csv' DELIMITER ',' CSV HEADER;
 --- District ---
-\COPY District(district_id, district) FROM '../data/District.csv' DELIMITER ',' CSV HEADER;
+\COPY districts(district_id, district) FROM '../data/Districts.csv' DELIMITER ',' CSV HEADER;
 --- Feeder ---
-\COPY Feeder( feeder_id, feeder ) FROM '../data/Feeder.csv' DELIMITER ',' CSV HEADER;
+\COPY feeders( feeder_id, feeder, district_id ) FROM '../data/Feeders.csv' DELIMITER ',' CSV HEADER;
 --- Students ---
-\COPY Students( student_id, gender, ethnicity_id, district_id, feeder_id, program_status_id, program_start, program_end, grad_date ) FROM '../data/Students.csv' DELIMITER ',' CSV HEADER; 
+\COPY students( student_id, gender, ethnicity_id, district_id, feeder_id, program_status_id, program_start, program_end, grad_date ) FROM '../data/Students.csv' DELIMITER ',' CSV HEADER;
 --- Courses ---
-\COPY Courses( courses_id, student_id, enrolled_semester, course_id, course_grade ) FROM '../data/Courses.csv' DELIMITER ',' CSV HEADER;
+\COPY student_courses( courses_id, student_id, enrolled_semester, course_id, course_grade ) FROM '../data/Student_Courses.csv' DELIMITER ',' CSV HEADER;
 --- FINISH ---

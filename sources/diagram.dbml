@@ -1,0 +1,101 @@
+Project {
+  name: 'Student Diagram'
+  description: 'Student diagram ERD'
+  team: 'Mikaylie, Immanuel, Lee'
+}
+
+Table students {
+  student_id integer [pk]
+  gender char
+  ethnicity_id integer
+  district_id integer
+  feeder_id integer
+  program_start date
+  program_end date
+  program_status_id integer
+  grad_date date
+  __created_at__ timestamp
+}
+
+Table ethnicities {
+  ethnicity_id integer [pk]
+  ethnicity string
+  __created_at__ timestamp
+}
+
+
+// Table City {
+//  city_id integer [pk]
+//  city string
+//}
+
+
+Table districts {
+  district_id integer [pk]
+  district string
+  __created_at__ timestamp
+}
+
+
+Table feeders {
+  feeder_id integer [pk]
+  feeder string
+  __created_at__ timestamp
+}
+
+// Table Degree {
+//   degree_id integer [pk]
+//   degree string
+// }
+
+Table course {
+  course_id serial [pk, increment]
+  course_code string
+  course_title string
+  course_credits integer
+  __created_at__ timestamp
+}
+
+Table students_courses {
+  // Student can be enrolled in
+  // multiple semesters
+  students_courses_id serial [pk, increment]
+  course_id integer
+  student_id integer
+  enrolled_semester string
+  course_grade string
+  __created_at__ timestamp
+  // course_points real
+}
+
+// Table Program {
+//   code string [pk]
+//   degree_id integer
+//   program string
+// }
+
+Table Program_Status {
+  program_status_id integer [pk, increment]
+  program_status string
+  __created_at__ timestamp
+}
+
+Ref: "students"."student_id" < "students_courses"."student_id"
+
+Ref: "students_courses"."course_id" > "course"."course_id"
+
+Ref: "ethnicities"."ethnicity_id" < "students"."ethnicity_id"
+
+// Ref: "City"."city_id" - "students"."city_id"
+
+Ref: "districts"."district_id" - "students"."district_id"
+
+Ref: "feeders"."feeder_id" < "students"."feeder_id"
+
+// Ref: "Degree"."degree_id" - "students"."degree_id"
+
+// Ref: "students"."code" - "Program"."code"
+
+Ref: "students"."program_status_id" > "Program_Status"."program_status_id"
+
+// Ref: "Program"."degree_id" - "Degree"."degree_id"
